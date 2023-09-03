@@ -1,62 +1,52 @@
 #include "head.h"
 
-FILE * file_w_open (void)
+#define MTX_ADDRESS (double *)((size_t) mtx + (y * (size_mtx -> sizeY) + x) * sizeof (double))
+
+FILE * file_open (const char *path, const char *status)
 {
-    FILE *file_write = NULL;
-    if ((file_write = fopen ("matrix_out.txt", "w")) == NULL) //check for opening
+    FILE *file = NULL;
+    if ((file = fopen (path, status)) == NULL) //check for opening
     {
         assert(0);
     }
-    return file_write;
+    return file;
 }
 
-FILE * file_r_open (void)
+void read_matrix (FILE *file_read, double *mtx, SizeMatrix *size_mtx)
 {
-    FILE *file_read = NULL;
-    if ((file_read = fopen ("matrix_out.txt", "r")) == NULL) //check for opening
+	for (size_t y = 0; y < size_mtx -> sizeY; y++)
     {
-        assert(0);
-    }
-    return file_read;
-}
-void read_matrix(double mtx[5][5], size_t sizeY, size_t sizeX)
-{
-    FILE *file_read = NULL;
-    file_read = file_r_open ();
-	for (size_t y = 0; y < sizeY; y++)
-		fscanf(file_read,"%lg %lg %lg %lg %lg", &mtx[y][0], &mtx[y][1], &mtx[y][2], &mtx[y][3], &mtx[y][4]);
-}
-
-void init_matrix(double mtx[5][5], size_t sizeY, size_t sizeX)
-{
-    for (size_t y = 0; y < sizeY; y++)
-    {
-        for (size_t x = 0; x < sizeX; x++)
-            mtx[y][x] = NAN;
-    }
-}
-
-void write_matrix(double mtx[5][5], size_t sizeY, size_t sizeX)
-{
-    FILE *file_write = NULL;
-    file_write = file_w_open ();
-
-    for (size_t y = 0; y < sizeY; y++)
-    {
-        for (size_t x = 0; x < sizeX; x++)
+        for (size_t x = 0; x < size_mtx -> sizeX; x++)
         {
-            fprintf(file_write, "a(%d,%d)[%.2lg]    ", x, y, mtx[y][x]);
-            fprintf(stdout, "a(%d,%d)[%.2lg]    ", x, y, mtx[y][x]);
+		    if (fscanf (file_read, "%lf", MTX_ADDRESS) == 0) assert(0);
         }
-        fprintf(file_write, "\n");  
-        fprintf(stdout, "\n");
     }
-    if (fclose(file_write) != 0)
-        printf("ERROR OF CLOSING!");
+}
+
+void init_matrix (double *mtx, SizeMatrix *size_mtx)
+{
+    for (size_t y = 0; y < size_mtx -> sizeY; y++)
+    {
+        for (size_t x = 0; x < size_mtx -> sizeX; x++)
+            *MTX_ADDRESS = NAN;
+    }
+}
+
+void write_matrix (FILE *file_write, const char name, const double *mtx, SizeMatrix *size_mtx)
+{
+    for (size_t y = 0; y < size_mtx -> sizeY; y++)
+    {
+        for (size_t x = 0; x < size_mtx -> sizeX; x++)
+        {
+            fprintf (file_write, "%c(%d,%d)[%9.2lg]\t", name, y, x, *MTX_ADDRESS);
+        }
+        fprintf (file_write, "\n");  
+    }
+    fprintf (file_write, "\n");
 }
 /*
-void multiply_matix (double mtxA[5][5], SizeMatrix sizeA double mtxB[][], SizeMatrix sizeB)
+void multiply_matix (double *mtxA, SizeMatrix *size_mtxA, double *mtxB, SizeMatrix *size_mtxB, double *mtxC, SizeMatrix *size_mtxC)
 {
-
+    for (size_t i = 0; y < )
 }
 */
