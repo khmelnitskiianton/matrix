@@ -44,9 +44,29 @@ void write_matrix (FILE *file_write, const char name, const double *mtx, SizeMat
     }
     fprintf (file_write, "\n");
 }
-/*
-void multiply_matix (double *mtxA, SizeMatrix *size_mtxA, double *mtxB, SizeMatrix *size_mtxB, double *mtxC, SizeMatrix *size_mtxC)
+int multiply_matrix (double *mtxA, SizeMatrix *size_mtxA, double *mtxB, SizeMatrix *size_mtxB, double *mtxC)
 {
-    for (size_t i = 0; y < )
+    if ((size_mtxA -> sizeX) != (size_mtxB -> sizeY))
+    {
+        printf ("I CANT MULTIPLY THIS MATRIXES. COLUMNS A MUST BE EQUAL TO ROWS B !!!");
+        return 0;
+    }
+
+    double summa_c = NAN;
+    size_t n =  size_mtxB -> sizeY;
+
+    for (size_t i = 0; i < (size_mtxA -> sizeY); i++)
+    {
+        for (size_t j = 0; j < (size_mtxB -> sizeX); j++)
+        {
+            summa_c = 0;
+            for (size_t k = 0; k < n; k++)
+            {
+                summa_c += (*(double *)((size_t) mtxA + (i * (size_mtxA -> sizeY) + j) * sizeof (double))) * (*(double *)((size_t) mtxB + (j * (size_mtxB -> sizeY) + i) * sizeof (double)));
+            }
+            *(double *)((size_t) mtxC + (i * (size_mtxA -> sizeY) + j) * sizeof (double)) = summa_c;
+        }
+    }
+
+    return 1;
 }
-*/

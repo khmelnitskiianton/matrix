@@ -12,7 +12,6 @@ start: main.o operations_matrix.o
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
 
-
 operations_matrix.o: operations_matrix.cpp
 	$(CC) $(CFLAGS) operations_matrix.cpp
 

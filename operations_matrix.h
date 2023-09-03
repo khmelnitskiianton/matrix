@@ -11,4 +11,4 @@ void init_matrix(double *mtx, SizeMatrix *size_mtx);
 
 void write_matrix(FILE *file_write, const char name, double *mtx, SizeMatrix *size_mtx);
 
-void multiply_matix (double *mtxA, SizeMatrix *size_mtxA, double *mtxB, SizeMatrix *size_mtxB, double *mtxC, SizeMatrix *size_mtxC);
+int multiply_matrix (double *mtxA, SizeMatrix *size_mtxA, double *mtxB, SizeMatrix *size_mtxB, double *mtxC);

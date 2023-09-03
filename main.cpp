@@ -48,7 +48,12 @@ int main()
     write_matrix (file_out, 'B', (double*) matrixB, &sizeB);
     write_matrix (stdout,   'B', (double*) matrixB, &sizeB);    
 
-    if (fclose (file_in))  printf ("ERROR OF CLOSING!\n");
+    if (multiply_matrix ((double*) matrixA, &sizeA, (double*) matrixB, &sizeB, (double*) matrixC) == 0) fprintf(file_out, "I CANT MULTIPLY THIS MATRIXES. COLUMNS A MUST BE EQUAL TO ROWS B !!!");
+    
+	/*write_matrix (file_out, 'C', (double*) matrixC, &sizeC);
+    write_matrix (stdout,   'C', (double*) matrixC, &sizeC);*/
+
+	if (fclose (file_in))  printf ("ERROR OF CLOSING!\n");
     if (fclose (file_out)) printf ("ERROR OF CLOSING!\n");
     
 }
