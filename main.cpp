@@ -7,7 +7,7 @@
 #define ROWS_C 5
 #define COLS_C 5 
 
-#define FIN "matrix_in.txt"
+#define FIN  "matrix_in.txt"
 #define FOUT "matrix_out.txt"
 
 int main()
@@ -16,7 +16,7 @@ int main()
     double matrixB[ROWS_B][COLS_B] = {};
     double matrixC[ROWS_C][COLS_C] = {};
 
-    FILE *file_in = file_open (FIN, "r");
+    FILE *file_in  = file_open (FIN,  "r");
     FILE *file_out = file_open (FOUT, "w");
 
     struct SizeMatrix sizeA 
@@ -61,9 +61,9 @@ int main()
 						};
 
 	write_triangle_matrix (file_out, (int*) score_table, 5);
-	write_triangle_matrix (stdout, (int*) score_table, 5);
+	write_triangle_matrix (stdout,   (int*) score_table, 5);
 
-	int coordinates[2] = {};
+	size_t coordinates[2] = {};
 
 	find_triangle_matrix (stdin, (int*) score_table, 5, coordinates);
 

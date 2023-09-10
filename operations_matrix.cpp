@@ -1,12 +1,16 @@
 #include "head.h"
 
-double* mtx_address(double *mtx, const size_t y, const size_t x, SizeMatrix *size_mtx)
+double* mtx_address(const double *mtx, const size_t y, const size_t x, SizeMatrix *size_mtx)
 {
+    assert(mtx);
     return  (double *)((size_t) mtx + (y * (size_mtx -> sizeY) + x) * sizeof (double));
 }
 
 FILE * file_open (const char *path, const char *status)
 {
+    assert(path);
+    assert(status);
+
     FILE *file = NULL;
     if ((file = fopen (path, status)) == NULL) 
     {
@@ -17,6 +21,9 @@ FILE * file_open (const char *path, const char *status)
 
 void read_matrix (FILE *file_read, double *mtx, SizeMatrix *size_mtx)
 {
+    assert(file_read);
+    assert(mtx);
+
 	for (size_t y = 0; y < size_mtx -> sizeY; y++)
     {
         for (size_t x = 0; x < size_mtx -> sizeX; x++)
@@ -28,6 +35,7 @@ void read_matrix (FILE *file_read, double *mtx, SizeMatrix *size_mtx)
 
 void init_matrix (double *mtx, SizeMatrix *size_mtx)
 {
+    assert(mtx);
     for (size_t y = 0; y < size_mtx -> sizeY; y++)
     {
         for (size_t x = 0; x < size_mtx -> sizeX; x++)
@@ -35,8 +43,11 @@ void init_matrix (double *mtx, SizeMatrix *size_mtx)
     }
 }
 
-void write_matrix (FILE *file_write, const char name, double *mtx, SizeMatrix *size_mtx)
+void write_matrix (FILE *file_write, const char name, const double *mtx, SizeMatrix *size_mtx)
 {
+    assert(file_write);
+    assert(mtx);
+
     for (size_t y = 0; y < size_mtx -> sizeY; y++)
     {
         for (size_t x = 0; x < size_mtx -> sizeX; x++)
@@ -50,6 +61,10 @@ void write_matrix (FILE *file_write, const char name, double *mtx, SizeMatrix *s
 
 int multiply_matrix (const double *mtxA, SizeMatrix *size_mtxA, const double *mtxB, SizeMatrix *size_mtxB, double *mtxC)
 {
+    assert(mtxA);
+    assert(mtxB);
+    assert(mtxC);
+
     if ((size_mtxA -> sizeX) != (size_mtxB -> sizeY))
     {
         printf ("I CANT MULTIPLY THIS MATRIXES. COLUMNS A MUST BE EQUAL TO ROWS B !!!");
@@ -83,6 +98,9 @@ int arithmetic_progression (const int start_arg, const int step, const int n)
 
 void write_triangle_matrix (FILE *file_write, const int *data, const size_t size)
 {
+    assert(file_write);
+    assert(data);
+
     for (size_t y = 0; y < size; y++)
     {    
         for (size_t x = 0; x < y + 1; x++)
@@ -93,9 +111,12 @@ void write_triangle_matrix (FILE *file_write, const int *data, const size_t size
     }
 }
 
-int find_triangle_matrix (FILE *file_read, const int *data, const size_t size, int *indexes)
+int find_triangle_matrix (FILE *file_read, const int *data, const size_t size, size_t *indexes)
 {
-
+    assert(file_read);
+    assert(data);
+    assert(indexes);
+    
     for (size_t i = 0; i < 2; i++)
         if (fscanf (file_read, "%d", &indexes[i]) == 0) assert(0);
     
